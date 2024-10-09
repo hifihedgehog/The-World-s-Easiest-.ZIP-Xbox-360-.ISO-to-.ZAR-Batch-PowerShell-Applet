@@ -1,4 +1,4 @@
-# The World's Easiest .ZIP Xbox 360 .ISO to .ZAR Batch PowerShell Applet
+# The World's Easiest Bulk .ZIP Xbox 360 .ISO to .ZAR PowerShell Applet
 
 **It's stupid easy now. Reclaim your device's disk space. Compress your jumbo library of .ZIP files of Xbox 360 .ISOs down into one mean and lean, Xenia Canary .ZAR-reducing machine.**
 
