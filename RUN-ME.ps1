@@ -59,7 +59,7 @@ foreach ($zipFile in $zipFiles) {
         # Use 7-Zip to extract the ZIP file (handling paths with spaces and special characters)
         $zipFilePathEscaped = "`"$($zipFile.FullName)`""  # Handle spaces in path
         $outputPathEscaped = "`"$tempZipFolder`""         # Handle spaces in output path
-        $sevenZipExePath = "C:\Program Files\7-Zip\7z.exe"  # Path to 7-Zip
+        $sevenZipExePath = ".\7za.exe"  # Path to 7-Zip
 
         Write-Host "Running: $sevenZipExePath x $zipFilePathEscaped -o$outputPathEscaped"
         & $sevenZipExePath x $zipFilePathEscaped "-o$outputPathEscaped"
