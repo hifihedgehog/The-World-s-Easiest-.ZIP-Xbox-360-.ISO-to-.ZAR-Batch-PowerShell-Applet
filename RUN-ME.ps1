@@ -40,30 +40,29 @@ foreach ($zipFile in $zipFiles) {
     $zipFileName = $zipFile.BaseName
     $zarFilePath = Join-Path -Path $zarDestination -ChildPath "$zipFileName.zar"
 
+    # Skip if the .zar file already exists
+    if (Test-Path $zarFilePath) {
+        Write-Host "Skipping '$($zipFile.Name)': .zar file already exists at '$zarFilePath'"
+        continue  # Skip to the next .zip file
+    }
+
     # Set temporary folder paths
     $tempZipFolder = ".\temp_zip"
     $isoExtractedFolder = ""
     $compressionSuccessful = $false  # Track whether compression was successful
 
-    # Wrap the extraction and compression steps in try/catch/finally
     try {
-        # Check if a .zar file already exists in the destination folder
-        if (Test-Path $zarFilePath) {
-            Write-Host "Skipping '$($zipFile.Name)': .zar file already exists at '$zarFilePath'"
-            continue  # Skip to the next .zip file
-        }
-
         # Create the temporary folder for extracting the .zip file
         Write-Host "Extracting '$($zipFile.Name)'..."
         New-Item -ItemType Directory -Force -Path $tempZipFolder
 
         # Use 7-Zip to extract the ZIP file (handling paths with spaces and special characters)
-        $zipFilePath = "`"$($zipFile.FullName)`""  # Handle spaces in path
-        $outputPath = "`"$tempZipFolder`""         # Handle spaces in output path
+        $zipFilePathEscaped = "`"$($zipFile.FullName)`""  # Handle spaces in path
+        $outputPathEscaped = "`"$tempZipFolder`""         # Handle spaces in output path
         $sevenZipExePath = "C:\Program Files\7-Zip\7z.exe"  # Path to 7-Zip
 
-        Write-Host "Running: $sevenZipExePath x $zipFilePath -o$outputPath"
-        & $sevenZipExePath x $zipFilePath "-o$outputPath"
+        Write-Host "Running: $sevenZipExePath x $zipFilePathEscaped -o$outputPathEscaped"
+        & $sevenZipExePath x $zipFilePathEscaped "-o$outputPathEscaped"
 
         # Find the single .iso file in the temporary zip folder
         $isoFiles = Get-ChildItem -Path $tempZipFolder -Filter "*.iso"
@@ -72,17 +71,15 @@ foreach ($zipFile in $zipFiles) {
             Write-Host "Found ISO file: '$($isoFile.Name)'"
 
             # Extract the .iso using extract-xiso.exe (handle special characters)
-            $isoFilePath = "`"$($isoFile.FullName)`""  # Handle spaces in ISO path
+            $isoFilePathEscaped = "`"$($isoFile.FullName)`""  # Handle spaces in ISO path
             $extractXisoExePath = ".\extract-xiso.exe" # Path to extract-xiso
 
-            Write-Host "Running: $extractXisoExePath -s $isoFilePath"
-            & $extractXisoExePath -s $isoFilePath
+            Write-Host "Running: $extractXisoExePath -s $isoFilePathEscaped"
+            & $extractXisoExePath -s $isoFilePathEscaped
 
             # Compress the extracted contents into a .zar file
-            $zarFilePath = Join-Path -Path $zarDestination -ChildPath "$($isoFile.BaseName).zar"
-            Write-Host "Compressing extracted contents into '$zarFilePath'..."
-            $isoExtractedFolder = $isoFile.BaseName  # No quotes or backticks here, just the plain folder name
             $zarFilePathEscaped = "`"$zarFilePath`""  # Handle spaces in zar path
+            $isoExtractedFolder = $isoFile.BaseName  # No quotes or backticks here, just the plain folder name
             $zarchiveExePath = ".\zarchive.exe"       # Path to zarchive
 
             Write-Host "Running: $zarchiveExePath $isoExtractedFolder $zarFilePathEscaped"
@@ -113,7 +110,7 @@ foreach ($zipFile in $zipFiles) {
             Remove-Item -Recurse -Force $isoExtractedFolder
         }
 
-        # Clean up the incomplete .zar file if compression was not successful
+        # Clean up the incomplete .zar file if compression was not successful and it was just created
         if (!$compressionSuccessful -and (Test-Path $zarFilePath)) {
             Write-Host "Cleaning up incomplete .zar file '$zarFilePath'..."
             Remove-Item -Force $zarFilePath
