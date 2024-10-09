@@ -64,5 +64,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - **7-Zip** by Igor Pavlov
 - **extract-xiso** by XboxDev
-- **ZArchive** tool by Exzap
+- **ZArchive** by Exzap
 
