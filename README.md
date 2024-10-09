@@ -50,7 +50,7 @@ These executables are included in the repository for your convenience.
 - Ensure you have **read/write permissions** for the folders you select.
 - The script is designed for Xbox 360 `.iso` files but might work for similar types of archives.
 - Tested on Windows 10, PowerShell version 5.1.
-- It's best to run the applet on your fastest drive on your machine. This will speed up conversion since the temporary files and folders are written and read where this is extracted and run.
+- It's best to run the applet on your fastest drive on your machine. This will speed up conversion since the temporary files and folders it uses for processing are written and read where this is extracted and run.
 
 ## Disclaimer
 
