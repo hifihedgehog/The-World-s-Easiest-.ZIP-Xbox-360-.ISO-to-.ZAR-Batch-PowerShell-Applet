@@ -1,0 +1,2 @@
+# The-World-s-Easiest-.ZIP-Xbox-360-.ISO-to-.ZAR-Batch-Powershell-Applet
+It's stupid easy now. Reclaim your device's disk space. Compress your jumbo library of .ZIP files of Xbox 360 .ISOs down into one mean and lean, Xenia Canary-reducing .ZAR machine. All dependencies included. No batteries needed. Just run the .ps1 file. It'll prompt you for everything. You can also stop and pick up later. It cleans up after itself!
