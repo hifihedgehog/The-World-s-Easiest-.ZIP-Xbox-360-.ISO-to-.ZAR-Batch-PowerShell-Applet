@@ -33,11 +33,12 @@ These executables are included in the repository for your convenience.
 - **Link**: [7-Zip Official Website](https://www.7-zip.org/)
 
 ### extract-xiso
-- **License**: MIT License
+- **License**: Berkeley Software License
 - **Link**: [extract-xiso GitHub Repository](https://github.com/XboxDev/extract-xiso)
 
 ### ZArchive
-- **License**: This tool is provided under its respective license. Please refer to the included LICENSE file for more details.
+- **License**:  MIT No Attribution
+- **Link**: [ZArchive GitHub Repository](https://github.com/Exzap/ZArchive)
 
 ## Example Output
 
@@ -62,5 +63,5 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - **7-Zip** by Igor Pavlov
 - **extract-xiso** by XboxDev
-- **ZArchive** tool by its respective authors.
+- **ZArchive** tool by Exzap.
 
